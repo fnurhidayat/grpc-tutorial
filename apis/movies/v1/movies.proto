@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package movies.v1; 
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/proto/movies/v1;moviesv1";
+
+service MoviesService {
+  rpc CreateMovie(CreateMovieRequest) returns (CreateMovieResponse) {
+    option (google.api.http) = {
+      post: "/v1/movies"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "CreateMovie"
+      summary: "Create Movie"
+      tags: "Movie"
+    };
+  };
+  rpc GetMovie(GetMovieRequest) returns (GetMovieResponse) {
+    option (google.api.http) = {
+      get: "/v1/movies/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "GetMovie"
+      summary: "Get Movie"
+      tags: "Movie"
+    };
+  };
+  rpc ListMovies(ListMoviesRequest) returns (ListMoviesResponse) {
+    option (google.api.http) = {
+      get: "/v1/movies"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "ListMovies"
+      summary: "List Movies"
+      tags: "Movie"
+    };
+  };
+  rpc UpdateMovie(UpdateMovieRequest) returns (UpdateMovieResponse) {
+    option (google.api.http) = {
+      put: "/v1/movies/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "UpdateMovie"
+      summary: "Update Movie"
+      tags: "Movie"
+    };
+  };
+  rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse) {
+    option (google.api.http) = {
+      delete: "/v1/movies/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "DeleteMovie"
+      summary: "Delete Movie"
+      tags: "Movie"
+    };
+  };
+}
+
+message CreateMovieRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "CreateMovieRequest"
+      description: "Request Create Movie for Internal use"
+      required: [
+        "title",
+        "summary",
+        "rating"
+      ]
+    }
+    example: "{\"title\":\"Product Management\",\"summary\":\"Belajar strategi pengembangan produk supaya profitable.\", \"rating\": 1 }"
+  };
+  string title = 1;
+  string summary = 2;
+  uint32 rating = 3;
+}
+message CreateMovieResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "CreateMovieRequest"
+      description: "Request Create Movie for Internal use"
+      required: [
+        "title",
+        "summary",
+        "rating"
+      ]
+    }
+    example: "{\"data\": { \"id\": 1, \"title\":\"Product Management\",\"summary\":\"Belajar strategi pengembangan produk supaya profitable.\", \"rating\": 1 } }"
+  };
+  Movie data = 1;
+}
+
+message GetMovieRequest {
+  uint32 id = 1;
+}
+message GetMovieResponse {
+  Movie data = 1;
+}
+
+message ListMoviesRequest {}
+message ListMoviesResponse {
+  repeated Movie data = 1;
+}
+
+message UpdateMovieRequest {
+  uint32 id = 1;
+  string title = 2;
+  string summary = 3;
+  uint32 rating = 4;
+}
+message UpdateMovieResponse {
+  Movie data = 1;
+}
+
+message DeleteMovieRequest {
+  uint32 id = 1;
+}
+message DeleteMovieResponse {}
+
+message Movie {
+  uint32 id = 1;
+  string title = 2;
+  string summary = 3;
+  uint32 rating = 4;
+}
