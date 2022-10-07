@@ -157,23 +157,24 @@
             "format": "int64"
           },
           {
-            "name": "title",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "summary",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "rating",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "rating": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           }
         ],
         "tags": [

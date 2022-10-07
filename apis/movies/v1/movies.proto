@@ -45,6 +45,7 @@ service MoviesService {
   rpc UpdateMovie(UpdateMovieRequest) returns (UpdateMovieResponse) {
     option (google.api.http) = {
       put: "/v1/movies/{id}"
+      body: "*"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
