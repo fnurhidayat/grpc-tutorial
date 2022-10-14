@@ -104,21 +104,54 @@ message GetMovieRequest {
   uint32 id = 1;
 }
 message GetMovieResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetMovieResponse"
+      description: "A movie response."
+    }
+    example: "{\"data\":{\"id\":1,\"title\":\"Kucing Tidur\",\"summary\":\"Kucing tidur tapi melek.\",\"rating\":5}}"
+  };
   Movie data = 1;
 }
 
 message ListMoviesRequest {}
 message ListMoviesResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "ListMovieResponse"
+      description: "Movie list response."
+    }
+    example: "{\"data\":[{\"id\":1,\"title\":\"Kucing Tidur\",\"summary\":\"Kucing tidur tapi melek.\",\"rating\":5},{\"id\":2,\"title\":\"Pengabdi Setan\",\"summary\":\"Setan.\",\"rating\":5},{\"id\":3,\"title\":\"Dilan\",\"summary\":\"Dilan\",\"rating\":5}]}"
+  };
   repeated Movie data = 1;
 }
 
 message UpdateMovieRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateMovieRequest"
+      description: "Request Create Movie for Internal use"
+      required: [
+        "title",
+        "summary",
+        "rating"
+      ]
+    }
+    example: "{\"title\":\"Product Management\",\"summary\":\"Belajar strategi pengembangan produk supaya profitable.\", \"rating\": 1 }"
+  };
   uint32 id = 1;
   string title = 2;
   string summary = 3;
   uint32 rating = 4;
 }
 message UpdateMovieResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateMovieResponse"
+      description: "An updated movie response."
+    }
+    example: "{\"data\":{\"id\":1,\"title\":\"Kucing Tidur\",\"summary\":\"Kucing tidur tapi melek.\",\"rating\":5}}"
+  };
   Movie data = 1;
 }
 

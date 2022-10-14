@@ -162,6 +162,11 @@
             "required": true,
             "schema": {
               "type": "object",
+              "example": {
+                "title": "Product Management",
+                "summary": "Belajar strategi pengembangan produk supaya profitable.",
+                "rating": 1
+              },
               "properties": {
                 "title": {
                   "type": "string"
@@ -173,7 +178,14 @@
                   "type": "integer",
                   "format": "int64"
                 }
-              }
+              },
+              "description": "Request Create Movie for Internal use",
+              "title": "UpdateMovieRequest",
+              "required": [
+                "title",
+                "summary",
+                "rating"
+              ]
             }
           }
         ],
@@ -266,14 +278,46 @@
     },
     "v1GetMovieResponse": {
       "type": "object",
+      "example": {
+        "data": {
+          "id": 1,
+          "title": "Kucing Tidur",
+          "summary": "Kucing tidur tapi melek.",
+          "rating": 5
+        }
+      },
       "properties": {
         "data": {
           "$ref": "#/definitions/v1Movie"
         }
-      }
+      },
+      "description": "A movie response.",
+      "title": "GetMovieResponse"
     },
     "v1ListMoviesResponse": {
       "type": "object",
+      "example": {
+        "data": [
+          {
+            "id": 1,
+            "title": "Kucing Tidur",
+            "summary": "Kucing tidur tapi melek.",
+            "rating": 5
+          },
+          {
+            "id": 2,
+            "title": "Pengabdi Setan",
+            "summary": "Setan.",
+            "rating": 5
+          },
+          {
+            "id": 3,
+            "title": "Dilan",
+            "summary": "Dilan",
+            "rating": 5
+          }
+        ]
+      },
       "properties": {
         "data": {
           "type": "array",
@@ -281,7 +325,9 @@
             "$ref": "#/definitions/v1Movie"
           }
         }
-      }
+      },
+      "description": "Movie list response.",
+      "title": "ListMovieResponse"
     },
     "v1Movie": {
       "type": "object",
@@ -304,11 +350,21 @@
     },
     "v1UpdateMovieResponse": {
       "type": "object",
+      "example": {
+        "data": {
+          "id": 1,
+          "title": "Kucing Tidur",
+          "summary": "Kucing tidur tapi melek.",
+          "rating": 5
+        }
+      },
       "properties": {
         "data": {
           "$ref": "#/definitions/v1Movie"
         }
-      }
+      },
+      "description": "An updated movie response.",
+      "title": "UpdateMovieResponse"
     }
   }
 }
