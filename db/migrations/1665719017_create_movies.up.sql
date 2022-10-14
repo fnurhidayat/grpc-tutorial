@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS movies (
+       id BIGSERIAL NOT NULL PRIMARY KEY,
+       title VARCHAR(255) NOT NULL,
+       summary TEXT NOT NULL,
+       rating SMALLINT NOT NULL
+);

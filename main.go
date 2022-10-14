@@ -8,8 +8,11 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/lib/pq"
+
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/domain/repository/memory"
+	"github.com/jmoiron/sqlx"
+	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/domain/repository/postgres"
 	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/domain/service"
 	moviesv1 "gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/proto/movies/v1"
 	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/server"
@@ -27,7 +30,13 @@ var (
 func main() {
 	flag.Parse()
 
-	movieRepository := memory.NewMemoryMovieRepository()
+	dbconnstr := os.Getenv("DATABASE_URL")
+	db, err := sqlx.Open("postgres", dbconnstr)
+	if err != nil {
+		logger.Fatalf("Cannot connect to the database: %s", err.Error())
+	}
+
+	movieRepository := postgres.NewPostgresMovieRepository(db)
 	createMovieService := service.NewCreateMovieService(movieRepository, logger)
 	listMoviesService := service.NewListMoviesService(movieRepository, logger)
 	getMovieService := service.NewGetMovieService(movieRepository, logger)

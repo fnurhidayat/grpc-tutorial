@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"time"
 
 	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/domain/entity"
 	"gitlab.com/binar-engineering-platform/backend/playground/grpc-tutorial/domain/repository"
@@ -28,13 +27,8 @@ type CreateMovieServiceImpl struct {
 	logger          grpclog.LoggerV2
 }
 
-func (s *CreateMovieServiceImpl) GetId() uint32 {
-	return uint32(time.Now().Unix())
-}
-
 func (s *CreateMovieServiceImpl) Call(ctx context.Context, params *CreateMovieParams) (*CreateMovieResult, error) {
 	movie := &entity.Movie{
-		Id:      s.GetId(),
 		Title:   params.Title,
 		Summary: params.Summary,
 		Rating:  params.Rating,
